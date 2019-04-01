@@ -1,4 +1,6 @@
+import json
 from django.shortcuts import render, HttpResponseRedirect
+from django.http import HttpResponse
 from .forms import ScrapingProcessForm
 
 # Create your views here.
@@ -16,6 +18,7 @@ def scraping_process(request):
             # Insert into DB
             # e.g. form.cleaned_data['custom_user']
             # e.g. form.cleaned_data['website_lists']
+            message = "file_content"
             if request.FILES.get('file_source', False):
                 file_source = request.FILES['file_source']
                 print(file_source)
@@ -24,20 +27,24 @@ def scraping_process(request):
                 request.POST._mutable = True
                 request.POST['website_lists'] = file_content
                 request.POST._mutable = init_mutable_value
-            
+                message = file_content
             if request.POST.get('website_lists', False):
                 #website list available, SCRAPE NOW
                 website_lists = form.cleaned_data['website_lists']
+                message = website_lists
                 print(website_lists)
-            
+                
             # redirect to a new URL:
             form.save()
-            return render(request, 'scraper/home.html',{'form':form})
+            print("MESSAGE: ", message)
+            return HttpResponse(json.dumps({'message': message}))
+            #return render(request, 'scraper/home.html',{'form':form})
 
     else:
         print('======================FORM NOT VALID======================')
             # GET, generate unbound (blank) form
         form = ScrapingProcessForm()
+    #return HttpResponse(json.dumps({'message': message}))
     return render(request,'scraper/home.html',{'form':form})
 
 def handle_uploaded_file(f):

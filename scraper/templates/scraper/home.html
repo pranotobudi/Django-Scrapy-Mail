@@ -1,4 +1,5 @@
-{% load static %}<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +16,8 @@
 <!-- Material Design Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <!-- <link href="{% static 'css/style.css' %}" rel="stylesheet"> -->
+  <link href="{% static 'css/scraper.css' %}" rel="stylesheet">
 
     <title>Document</title>
 </head>
@@ -37,7 +39,11 @@
 
 <!-- Projects section v.4 -->
 <section class="text-center my-5">
-
+      <!-- <div id="progress-wrapper">
+        <button id="progress-bar-trigger">Run</button>
+        <div id="progress-bar" style="background-color: blue; width: 0%;">&nbsp;</div>
+        <div id="progress-bar-message">Waiting for progress to start...</div>
+      </div> -->
         <!-- Section heading -->
         <p id="my-scrapy-mail" class="text-center my-5">You can upload a file or just input your website lists here</p>
         <!-- Section description -->
@@ -53,22 +59,20 @@
               
                   </div>
                   <!-- Grid column -->
-              
+                  <div class="message">MESSAGE</div>
+
                   <!-- Grid column -->
                   <div class="col-md-4 text-center">
-                        <!-- <span class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                        </span> -->
-                        <form action={% url 'scraping-process' %} method="post" enctype="multipart/form-data">
+                        <!-- <form action={% url 'scraping-process' %} method="post" enctype="multipart/form-data"> -->
+                          <form id="my-form" action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form.as_p }}
-                            <!-- <div class="form-group shadow-textarea"> -->
-                                    <!-- <label for="exampleFormControlTextarea6"></label> -->
-                                    <!-- <textarea name='my-text-area' class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="10" placeholder="example.com">
-                                    </textarea>
-                            </div> -->
-                            <input type="submit" value="Start Scraping">
+                            <input id='progress-bar-trigger' type="submit" value="Start Scraping">
+                            <div id="progress-wrapper">
+                              <!-- <button id="progress-bar-trigger">Run</button> -->
+                              <div id="progress-bar" style="background-color: blue; width: 0%;">&nbsp;</div>
+                              <div id="progress-bar-message">Waiting for progress to start...</div>
+                            </div>
                         </form>
                         <a class="btn btn-grey btn-rounded btn-md"><i class="fas fa-clone left"></i> Download Results</a>
                         <a class="btn btn-secondary btn-rounded btn-md"><i class="fas fa-clone left"></i> Download Results</a>                
@@ -159,6 +163,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/js/mdb.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src = {% static "js/scraper.js" %}> </script>
 
 </body>
 </html>

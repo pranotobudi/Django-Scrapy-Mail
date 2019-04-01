@@ -10,6 +10,7 @@ django = "*"
 flake8 = "*"
 psycopg2-binary = "*"
 psycopg2 = "*"
+django-livereload-server = "*"
 
 [requires]
 python_version = "3.7"
